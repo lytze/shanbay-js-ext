@@ -14,7 +14,7 @@
 8. `置顶` 键会将当前单词放回列表顶端再次复习
 9. 您可以点击这里跳转到 [WordInfo](http://wordinfo.info) 与 [Etymonline](http://www.etymonline.com) 这两个词根及词源数据库直接检索当前单词
 
-[example](./example.jpg)
+![example](./example.jpg)
 
 ### 加载方式
 
