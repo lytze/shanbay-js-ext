@@ -2,33 +2,51 @@ list_of_test = []
 
 $("body").prepend('\
 	<div id="re-test" class="well"\
-	style="position:fixed; right:15px; top:70px; width:220px; z-index:2000; background-color:#eee">\
+	style="position:fixed; right:15px; top:65px; width:220px; z-index:2000; background-color:#eee">\
 		<div id="test-listed"></div>\
-		<div class="form-group" style="position:relative">\
-			<input id="test-a" type="text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" class="form-control">\
+		<div style="position:relative">\
+			<input id="test-a" type="text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off">\
 			<span id="test-tell-c" style="position:absolute; top:5px; right:7px; color:#209e85; display:none">&#x2714;</span>\
 			<span id="test-tell-r" style="position:absolute; top:5px; right:7px; color:#d2672e; display:none">&#x2718;</span>\
+			<small id="test-tell-o" style="position:absolute; top:5px; right:7px;display:none">成功添加</small>\
+			<small id="test-tell-p" style="position:absolute; top:5px; right:7px;display:none">无法在页面上定位单词</small>\
 		</div>\
 		<div class="btn-group">\
 			<button id="test-check" class="btn">检查</button>\
 			<button id="test-hint" class="btn">提示</button>\
-			<button id="test-next" class="btn">下一个</button>\
+			<button id="test-top" class="btn">置顶</button>\
+			<button id="test-next" class="btn" style="padding-left:8.5px;padding-right:8.5px;">下一个</button>\
 		</div>\
-		<hr />\
-		<div class="form-group">\
-			<input id="test-h" type="text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" class="form-control" placeholder="补充提示">\
+		<br/><br/>\
+		<input id="test-h" type="text" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" placeholder="补充提示">\
+		<div class="btn-group">\
+			<button id="test-add" class="btn">添加</button>\
+			<button id="search-wi" class="btn" style="padding-left:9.5px;padding-right:9.5px;">WordInfo</button>\
+			<button id="search-et" class="btn" style="padding-left:9.5px;padding-right:9.5px;">Etymonline</button>\
 		</div>\
-		<button id="test-add" class="btn">加入队列</button>\
-		<small id="test-tell-o" style="display:none">成功加入</small>\
-		<small id="test-tell-p" style="display:none">找不到单词</small>\
+		<br/><br/>\
+		<div style="position:relative">\
+			<input type="number" value=3 id="test-list-b" style="display:inline-block;width:93px">\
+			<input type="number" value=4 id="test-list-r" style="display:inline-block;width:93px">\
+			<small style="position:absolute; top:5px; right:140px">词后着重</small>\
+			<small style="position:absolute; top:5px; right:29px">词后提示</small>\
+		</div>\
 	</div>\
 ')
 
 function updateWordList() {
+	len = list_of_test.length
+	blk = len - $("#test-list-b").val()
+	red = blk - $("#test-list-r").val()
 	$("#test-listed").children().remove()
-	$("#test-listed").prepend('<p style="overflow:hidden">' + list_of_test[0][1] + "</p>")
-	for (i = 1; i < list_of_test.length; i++) {
-		$("#test-listed").prepend('<p style="overflow:hidden; color:#999">' + list_of_test[i][1] + "</p>")
+	for (i = 0; i < list_of_test.length; i++) {
+		col = "#999"
+		if (i < red) {
+			col = "#d50"
+		} else if (i < blk) {
+			col = "#000"
+		}
+		$("#test-listed").prepend('<p style="overflow:hidden;color:' + col + '">' + list_of_test[i][1] + "</p>")
 	}
 }
 function tellAnswer(what) {
@@ -63,20 +81,24 @@ $("#test-add").click(function() {
 	}
 	$("#test-h").val("")
 })
+$(document).keyup(function(e){
+	if (e.shiftKey && e.which == 187) {
+		$("#test-add").click()
+	}
+})
 $("#test-check").click(function() {
 	if ($("#test-a").val() == list_of_test[0][0]) {
-		$("#test-a").val("")
 		tellAnswer("correct")
-		list_of_test.shift()
-		updateWordList()
 	} else {
 		tellAnswer("wrong")
 	}
 })
 $("#test-a").keyup(function(e){
-    if (e.which == 13){
-        $("#test-check").click();
-    }
+	if (e.shiftKey && e.which == 13) {
+		$("#test-next").click()
+	} else if (e.which == 13) {
+		$("#test-check").click()
+	}
 })
 $("#test-hint").click(function() {
 	if (list_of_test[0][2] == "") {
@@ -87,8 +109,22 @@ $("#test-hint").click(function() {
 		list_of_test[0][2] = ""
 	}
 })
+$("#test-top").click(function() {
+	list_of_test.push(list_of_test[0])
+	list_of_test.shift()
+	updateWordList()
+	$("#test-a").val("")
+})
 $("#test-next").click(function() {
 	list_of_test.shift()
 	updateWordList()
 	$("#test-a").val("")
+})
+$("#search-wi").click(function() {
+	what = $("h1.content").clone().children().remove().end().text().trim().replace(" ", "+")
+	window.open("http://wordinfo.info/results?searchString=" + what, "_blank")
+})
+$("#search-et").click(function() {
+	what = $("h1.content").clone().children().remove().end().text().trim().replace(" ", "+")
+	window.open("http://www.etymonline.com/search?q=" + what, "_blank")
 })
