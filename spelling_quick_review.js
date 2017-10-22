@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         扇贝单词拼写检查
+// @namespace    liyutze.seikiri@gmail.com
 // @version      1.0
 // @description  Quick Review Words by Respelling
 // @author       Li Yutze
