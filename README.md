@@ -18,9 +18,13 @@
 
 ### 加载方式
 
-暂时没有打包为浏览器插件，因此需要在背单词页面加载 [www.shanbay.com/bdc/review](https://www.shanbay.com/bdc/review) JavaScript 文件（打开浏览器自带的元素审阅功能，在控制台黏贴全部代码并回车执行）
+为您心爱的浏览器下载 TamperMonkey 或者其他的支持 Userscripts 的脚本管理器插件，在其中添加本脚本即可。您可以下载该 `.js` 文件，或者使用 URL `https://github.com/lytze/shanbay-js-ext/blob/master/spelling_quick_review.js` 加载该脚本，根据您的插件管理器设置情况，这样可能可以时刻保持插件的更新
 
 ### 更新日志
+
+#### 17-10-23
+
+1. __加载方式__ 现在此脚本可以作为 UserScripts 直接添加到支持该格式的脚本管理器中
 
 #### 17-10-22
 
