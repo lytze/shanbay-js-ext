@@ -1,4 +1,5 @@
 list_of_test = []
+enter_cont = 1
 
 $("body").prepend('\
 	<div id="re-test" class="well"\
@@ -52,19 +53,19 @@ function updateWordList() {
 function tellAnswer(what) {
 	if (what == "correct") {
 		$("#test-tell-c").show()
-		$("#test-tell-c").fadeOut()
+		$("#test-tell-c").fadeOut("slow")
 	} else {
 		$("#test-tell-r").show()
-		$("#test-tell-r").fadeOut()
+		$("#test-tell-r").fadeOut("slow")
 	}
 }
 function tellAdd(what) {
 	if (what == "ok") {
 		$("#test-tell-o").show()
-		$("#test-tell-o").fadeOut()
+		$("#test-tell-o").fadeOut("slow")
 	} else {
 		$("#test-tell-p").show()
-		$("#test-tell-p").fadeOut()
+		$("#test-tell-p").fadeOut("slow")
 	}
 }
 
@@ -82,22 +83,31 @@ $("#test-add").click(function() {
 	$("#test-h").val("")
 })
 $(document).keyup(function(e){
-	if (e.shiftKey && e.which == 187) {
+	if (e.which == 192) {
 		$("#test-add").click()
+	} else if (e.which == 27) {
+		if ($("#test-a").is(":focus")) {
+			$("#test-a").blur()
+		} else {
+			$("#test-a").focus()
+		}
 	}
 })
 $("#test-check").click(function() {
 	if ($("#test-a").val() == list_of_test[0][0]) {
 		tellAnswer("correct")
+		enter_cont = 0
 	} else {
 		tellAnswer("wrong")
 	}
 })
 $("#test-a").keyup(function(e){
-	if (e.shiftKey && e.which == 13) {
-		$("#test-next").click()
-	} else if (e.which == 13) {
-		$("#test-check").click()
+	if (e.which == 13) {
+		if (enter_cont == 1) {
+			$("#test-check").click()
+		} else {
+			$("#test-next").click()
+		}
 	}
 })
 $("#test-hint").click(function() {
@@ -110,15 +120,18 @@ $("#test-hint").click(function() {
 	}
 })
 $("#test-top").click(function() {
+	list_of_test[0][3] = 1
 	list_of_test.push(list_of_test[0])
 	list_of_test.shift()
 	updateWordList()
 	$("#test-a").val("")
+	enter_cont = 1
 })
 $("#test-next").click(function() {
 	list_of_test.shift()
 	updateWordList()
 	$("#test-a").val("")
+	enter_cont = 1
 })
 $("#search-wi").click(function() {
 	what = $("h1.content").clone().children().remove().end().text().trim().replace(" ", "+")
