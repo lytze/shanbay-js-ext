@@ -22,13 +22,14 @@
 
 1. 您可以下载该 `.js` 文件，在插件中以文件方式加载
 2. 或者使用 URL `https://github.com/lytze/shanbay-js-ext/blob/master/spelling_quick_review.js` 加载该脚本
-3. 您可以前往该脚本的 [greasyfork.org](https://greasyfork.org/ja/scripts/34450-扇贝单词拼写检查) 界面来下载
+3. 您可以前往该脚本的 [greasyfork.org](https://greasyfork.org/zh-CN/scripts/34450-扇贝单词拼写检查) 界面来下载
 
 ### 更新日志
 
 #### 1.0.1
 
 __键盘控制__ 添加提示和置顶两个功能的快捷键
+__说明文本__ 下载链接语言版本修正为中文
 
 #### 1.0.0
 
