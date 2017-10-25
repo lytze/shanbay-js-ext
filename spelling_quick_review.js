@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         扇贝单词拼写检查
 // @namespace    liyutze.seikiri@gmail.com
-// @version      1.0
+// @version      1.0.1
 // @description  Quick Review Words by Respelling
 // @author       Li Yutze
 // @include      https://www.shanbay.com/bdc/review/
@@ -118,6 +118,10 @@ $("#test-a").keyup(function(e){
 		} else {
 			$("#test-next").click();
 		}
+	} else if (e.which == 39) {
+		$("#test-hint").click();
+	} else if (e.which == 38) {
+		$("#test-top").click();
 	}
 });
 $("#test-hint").click(function() {
